@@ -38,6 +38,7 @@
 			<artifactId>taglibs-standard-spec</artifactId>
 			<version>1.2.5</version>
 		</dependency>
+		<!-- Mock une url -->
 		<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
