@@ -17,16 +17,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class paramController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	Date d;
 	
 	@RequestMapping(value = "/plus10", method = RequestMethod.GET)
 	public ModelAndView plus10(
-	        @RequestParam(value = "num", defaultValue = "100") Integer value){
+	        @RequestParam(value = "num", defaultValue = "100") Integer value,
+			@RequestParam(value = "date", required=false, defaultValue = "1/1/2000") @DateTimeFormat(pattern = "dd/MM/yyyy") Date date ){
 
 		logger.info("Running plus10 controler with param = " + value);
-	    
-	    return new ModelAndView("hello", "number", value + 10);
+		
+		System.out.println(date);
+		
+		ModelAndView result = new ModelAndView("hello");
+        result.addObject("number", value+10);
+        result.addObject("date", date);
+		
+	    return result;
 	}
 	
 }

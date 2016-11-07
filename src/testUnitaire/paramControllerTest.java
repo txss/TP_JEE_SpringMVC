@@ -3,6 +3,7 @@ package testUnitaire;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 
@@ -46,15 +47,30 @@ public class paramControllerTest {
 	
 	
 	@Test
-	public void view() throws ServletException, IOException {
-		ModelAndView result = param.plus10(10);
-		assertEquals("hello", result.getViewName());
+	public void view() throws Exception {
+		ResultMatcher ok = MockMvcResultMatchers.view().name("hello"); // ce que j'attend
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/tests/plus10");
+        this.mockMvc.perform(builder)
+                    .andExpect(ok);
 	}
 	
 	@Test
-	public void plus10() throws ServletException, IOException {
-		ModelAndView result = param.plus10(10);
-		assertEquals(20, result.getModelMap().get("number"));
+	public void plus10() throws Exception {
+		ResultMatcher ok = MockMvcResultMatchers.model().attribute("number", 20); // ce que j'attend
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/tests/plus10?num=10");
+        this.mockMvc.perform(builder)
+                    .andExpect(ok);
+	}
+	
+	@Test
+	public void plus10Date() throws Exception {
+		ResultMatcher ok = MockMvcResultMatchers.model().attribute("date", new Date("1/01/1993")); // ce que j'attend
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/tests/plus10?date=1/01/1993");
+        this.mockMvc.perform(builder)
+                    .andExpect(ok);
 	}
 	
 	@Test
