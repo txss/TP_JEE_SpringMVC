@@ -6,6 +6,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import springapp.model.Product;
+import springapp.model.ProductCode;
 
 @Service
 public class ProductValidator implements Validator {
@@ -19,18 +20,24 @@ public class ProductValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Product product = (Product) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-                "product.name", "Field name is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "product.name");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description",
-                "product.description", "Field description is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "product.description");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type",
-                "product.type", "Field type is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "product.type");
 
         if (!(product.getPrice() > 0.0)) {
-            errors.rejectValue("price", "product.price.too.low",
-                    "Price too low");
+            errors.rejectValue("price", "product.price.too.low");
+        }
+        
+        ProductCode code = product.getCode();
+        if (code != null) {
+            if (!code.getBase().matches("[A-Z]")) {
+                errors.rejectValue("code", "product.code.base");
+            }
+            if (!(code.getNumber() >= 1000 && code.getNumber() <= 9999)) {
+                errors.rejectValue("code", "product.code.number");
+            }
         }
     }
 

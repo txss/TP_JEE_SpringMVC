@@ -7,7 +7,7 @@ public class Product {
     private String description;
     private String type;
     private Integer number;
-    
+    private ProductCode code;
     
     public Integer getNumber() {
         return number;
@@ -49,4 +49,12 @@ public class Product {
         this.type = type;
     }
 
+    public ProductCode getCode() {
+        return code;
+    }
+
+    public void setCode(ProductCode code) {
+        this.code = code;
+    }
+    
 }

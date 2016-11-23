@@ -28,4 +28,13 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
+	<!-- Change the langage of the errors messages  -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/springapp/web/product</value>
+			</list>
+		</property>
+	</bean>
 </beans>

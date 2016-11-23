@@ -9,6 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import springapp.business.ProductManager;
 import springapp.model.Product;
+import springapp.model.ProductCode;
 
 @Controller()
 @RequestMapping("/product")
@@ -46,6 +49,11 @@ public class ProductController {
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editProduct(@ModelAttribute Product p) {
         return "productForm";
+    }
+    
+    @InitBinder
+    public void initBinder(WebDataBinder b) {
+        b.registerCustomEditor(ProductCode.class, new ProductCodeEditor());
     }
     
     @RequestMapping(value = "/edit", method = RequestMethod.POST)

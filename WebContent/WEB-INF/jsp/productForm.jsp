@@ -42,6 +42,13 @@
 					</form:select></td>
 				<td><form:errors path="type" cssClass="error" /></td>
 			</tr>
+<tr>
+    <td>Code : </td>
+    <td>
+        <form:input path="code" />
+    </td>
+    <td><form:errors path="code" cssClass="error" /></td>
+</tr>
 			<tr>
 				<td>price :</td>
 				<td><form:input path="price" /></td>
