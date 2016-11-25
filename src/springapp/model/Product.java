@@ -1,14 +1,38 @@
 package springapp.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import springapp.web.Bye;
+
 public class Product {
 
-    private String name;
-    private Double price;
-    private String description;
-    private String type;
+
     private Integer number;
-    private ProductCode code;
+	
+	@NotNull
+    @Size(min = 1, message = "Le nom est obligatoire")
+    private String name;
+	
+	@NotNull
+    @Min(value = 1, message = "Le prix est trop bas")
+    private Double price;
+	
+	@NotNull(message = "La description est obligatoire")
+    @Size(min = 1, max = 100, message = "Entre 1 et 200 caractères")
+	@Bye
+    private String description;
     
+    @NotNull()
+    @Size(min=1,message="Le type doit être renseigné")
+	private String type;
+	
+    @Valid
+	private ProductCode code;
+    
+	
     public Integer getNumber() {
         return number;
     }

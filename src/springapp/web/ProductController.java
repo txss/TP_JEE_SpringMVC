@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +59,7 @@ public class ProductController {
     }
     
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute Product p, BindingResult result) {
-    	validator.validate(p, result);
+    public String saveProduct(@ModelAttribute @Valid Product p, BindingResult result) {
     	if (result.hasErrors()) {
             return "productForm";
         }

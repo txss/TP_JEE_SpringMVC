@@ -17,7 +17,6 @@
 	<!-- Utiliser les annotations liées au module MVC de Spring -->
 	<mvc:annotation-driven enable-matrix-variables="true" />
 
-
 	<bean name="/hello.htm" class="springapp.web.HelloController" />
 
 	<bean id="viewResolver"
@@ -28,7 +27,7 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
-	<!-- Change the langage of the errors messages  -->
+	<!-- Change the langage of the errors messages -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -37,4 +36,13 @@
 			</list>
 		</property>
 	</bean>
+	
+<bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url"      value="jdbc:mysql://localhost/annuaire" />
+    <property name="username" value="admin" />
+    <property name="password" value="admin" />
+</bean>
+
 </beans>
